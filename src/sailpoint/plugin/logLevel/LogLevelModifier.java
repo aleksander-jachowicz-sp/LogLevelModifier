@@ -18,23 +18,29 @@ import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import sailpoint.rest.plugin.AllowAll;
 import sailpoint.rest.plugin.BasePluginResource;
+import sailpoint.rest.plugin.RequiredRight;
+import sailpoint.tools.GeneralException;
 
 
 @Path("logLevelModifier")
 public class LogLevelModifier extends BasePluginResource {
 
+	private static Logger log = Logger.getLogger(LogLevelModifier.class);
+	
 	@Override
 	public String getPluginName() {
 		return "loglevelmodifier";
 	}
 	
-	@AllowAll	
+	@SuppressWarnings("unchecked")
+	@RequiredRight(value = "SPRightLogLeveLModifier")
 	@GET
 	@Path("getLoggers")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Map<String, String>> gerLoggers() {
+	public List<Map<String, String>> gerLoggers() throws GeneralException {
+		
+		log.debug("Running getLoggers. By user "+ getLoggedInUser().getName()+" having rights: "+getLoggedInUserRights());
 		
 		Enumeration<Logger> loggers = LogManager.getCurrentLoggers();
 		List<Map<String, String>> loggersList = new ArrayList<>();
@@ -62,13 +68,14 @@ public class LogLevelModifier extends BasePluginResource {
         return loggersList;
 	}
 	
-	@AllowAll	
+	@RequiredRight(value = "SPRightLogLeveLModifier")
 	@GET
 	@Path("setLogLevel")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String setLogLevel(@QueryParam("lName") String loggerName, @QueryParam("level") String level) { 
 		
-		System.out.println("Setting logger "+loggerName+ " to "+level);
+		log.debug("Setting logger "+loggerName+ " to "+level);
+		
 		LogManager.getLogger(loggerName).setLevel(Level.toLevel(level));
 		
 		return "OK";

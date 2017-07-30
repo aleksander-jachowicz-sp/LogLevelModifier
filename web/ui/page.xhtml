@@ -19,12 +19,12 @@
     		<br/>
     		<div id="filter">
     			<form name="myForm">
-    				<input type="text" name="filterValue" ng-model="logFilter"/>
+    				&nbsp;&nbsp;<input type="text" name="filterValue" ng-model="logFilter"/>
     				<button ng-click="filterLoggers()" ng-show="true" id="filterButton" class="primaryBtn btn btn-default">Filter</button>
     				<button ng-click="clearFilter()" ng-show="true" id="filterButton" class="primaryBtn btn btn-default">Clear Filter</button>
     				<button ng-click="getLoggers()" ng-show="true" id="filterButton" class="primaryBtn btn btn-default">Reload filters</button>
     				<br/>
-    				
+    				&nbsp;&nbsp;
     				<label>
 	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="All levels" ng-change="filterLoggers()"/>All levels
     				</label>&nbsp;
@@ -63,6 +63,7 @@
 				   	 		<th>LoggerName</th>
 				   	 		<th>Parent</th>
 				   	 		<th>EffectiveLevel</th>
+				   	 		<th>Level Control</th>
 				  		</tr>
 				  		<tr ng-repeat="p in loggers" ng-show="p.show">
 				  			<td>{{p.LoggerName}}</td>

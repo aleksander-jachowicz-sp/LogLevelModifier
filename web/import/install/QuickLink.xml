@@ -3,7 +3,7 @@
 <QuickLink action="external" category="Admin" messageKey="Manage log levels" name="LogLevelModifierQL">
 	<QuickLinkOptions allowSelf="true">
 		<DynamicScopeRef>
-			<Reference class="sailpoint.object.DynamicScope" name="Everyone"/>
+			<Reference class="sailpoint.object.DynamicScope" name="LogLeveModifierPopulation"/>
 		</DynamicScopeRef>
 	</QuickLinkOptions>
 	<Attributes>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE SPRight PUBLIC "sailpoint.dtd" "sailpoint.dtd">
+<SPRight displayName="Log LeveL Modifier Access" name="SPRightLogLeveLModifier">
+  <Description>Access to Log Level Modifier Plugin</Description>
+</SPRight>
