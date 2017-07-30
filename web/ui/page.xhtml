@@ -61,18 +61,20 @@
 		  			<table id="partResTable" class="table table-striped">
 				    	<tr>
 				   	 		<th>LoggerName</th>
+				   	 		
+				   	 		<th>Level Control</th>
 				   	 		<th>Parent</th>
 				   	 		<th>EffectiveLevel</th>
-				   	 		<th>Level Control</th>
 				  		</tr>
 				  		<tr ng-repeat="p in loggers" ng-show="p.show">
 				  			<td>{{p.LoggerName}}</td>
-				  			<td>{{p.Parent}}</td>
-			                <td>{{p.EffectiveLevel}}</td>
+				  			
 			                <td>
 			                	<button ng-repeat="level in levels" ng-click="setLogLevel(p.LoggerName, level)" ng-disabled="isDisabled(p.EffectiveLevel, level)"
 			                	ng-show="true" id="filterButton" class="primaryBtn btn btn-default">{{level}}</button>
 			                </td>
+			                <td>{{p.Parent}}</td>
+			                <td>{{p.EffectiveLevel}}</td>
 				  		</tr>
 		  			</table>
 		  		</div>
