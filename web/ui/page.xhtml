@@ -26,28 +26,28 @@
     				<br/>
     				&nbsp;&nbsp;
     				<label>
-	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="All levels" ng-change="filterLoggers()"/>All levels
-    				</label>&nbsp;
+	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="All levels" ng-change="filterLoggers()"/>&nbsp;All levels
+    				</label>&nbsp;&nbsp;
     				<label >
-	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="trace" ng-change="filterLoggers()"/>trace
-    				</label>&nbsp;
+	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="trace" ng-change="filterLoggers()"/>&nbsp;trace
+    				</label>&nbsp;&nbsp;
     				<label >
-	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="debug" ng-change="filterLoggers()"/>debug
-    				</label>&nbsp;
+	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="debug" ng-change="filterLoggers()"/>&nbsp;debug
+    				</label>&nbsp;&nbsp;
     				<label >
-	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="info" ng-change="filterLoggers()"/>info
-    				</label>&nbsp;
+	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="info" ng-change="filterLoggers()"/>&nbsp;info
+    				</label>&nbsp;&nbsp;
     				<label >
-	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="warn" ng-change="filterLoggers()"/>warn
-    				</label>&nbsp;
+	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="warn" ng-change="filterLoggers()"/>&nbsp;warn
+    				</label>&nbsp;&nbsp;
     				<label >
-	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="error" ng-change="filterLoggers()"/>error
-    				</label>&nbsp;
+	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="error" ng-change="filterLoggers()"/>&nbsp;error
+    				</label>&nbsp;&nbsp;
     				<label >
-	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="fatal" ng-change="filterLoggers()"/>fatal
-    				</label>&nbsp;
+	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="fatal" ng-change="filterLoggers()"/>&nbsp;fatal
+    				</label>&nbsp;&nbsp;
     				<label >
-	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="off" ng-change="filterLoggers()"/>off
+	   				<input type="radio" name="levelFilter" ng-model="selectedLevel" value="off" ng-change="filterLoggers()"/>&nbsp;off
     				</label>
     				<br/>
     			</form>
@@ -63,8 +63,8 @@
 				   	 		<th>LoggerName</th>
 				   	 		
 				   	 		<th>Level Control</th>
-				   	 		<th>Parent</th>
-				   	 		<th>EffectiveLevel</th>
+				   	 		<th class="col-sm-1">Parent</th>
+				   	 		<th class="col-sm-1">EffectiveLevel</th>
 				  		</tr>
 				  		<tr ng-repeat="p in loggers" ng-show="p.show">
 				  			<td>{{p.LoggerName}}</td>
