@@ -19,7 +19,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import sailpoint.rest.plugin.BasePluginResource;
-import sailpoint.rest.plugin.RequiredRight;
+import sailpoint.rest.plugin.SystemAdmin;
 import sailpoint.tools.GeneralException;
 
 
@@ -34,9 +34,10 @@ public class LogLevelModifier extends BasePluginResource {
 	}
 	
 	@SuppressWarnings("unchecked")
-	@RequiredRight(value = "SPRightLogLeveLModifier")
+	
 	@GET
 	@Path("getLoggers")
+	@SystemAdmin
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Map<String, String>> gerLoggers() throws GeneralException {
 		
@@ -68,9 +69,10 @@ public class LogLevelModifier extends BasePluginResource {
         return loggersList;
 	}
 	
-	@RequiredRight(value = "SPRightLogLeveLModifier")
+
 	@GET
 	@Path("setLogLevel")
+	@SystemAdmin
 	@Produces(MediaType.APPLICATION_JSON)
 	public String setLogLevel(@QueryParam("lName") String loggerName, @QueryParam("level") String level) { 
 		
