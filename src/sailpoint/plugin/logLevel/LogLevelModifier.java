@@ -1,6 +1,7 @@
 package sailpoint.plugin.logLevel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Enumeration;
@@ -14,9 +15,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.LoggerContext;
 
 import sailpoint.rest.plugin.BasePluginResource;
 import sailpoint.rest.plugin.SystemAdmin;
@@ -26,7 +27,7 @@ import sailpoint.tools.GeneralException;
 @Path("logLevelModifier")
 public class LogLevelModifier extends BasePluginResource {
 
-	private static Logger log = Logger.getLogger(LogLevelModifier.class);
+	private static Logger log = LogManager.getLogger(LogLevelModifier.class);
 	
 	@Override
 	public String getPluginName() {
@@ -43,20 +44,20 @@ public class LogLevelModifier extends BasePluginResource {
 		
 		log.debug("Running getLoggers. By user "+ getLoggedInUser().getName()+" having rights: "+getLoggedInUserRights());
 		
-		Enumeration<Logger> loggers = LogManager.getCurrentLoggers();
+		final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
+		
+		Collection<org.apache.logging.log4j.core.Logger> loggers = ctx.getLoggers();
 		List<Map<String, String>> loggersList = new ArrayList<>();
 		
-        while (loggers.hasMoreElements()) {
-            Logger logger = loggers.nextElement();
-            
-            Map<String, String> loggerMap = new HashMap<>();
+		for(org.apache.logging.log4j.core.Logger logger: loggers) {
+			Map<String, String> loggerMap = new HashMap<>();
             loggerMap.put("LoggerName", logger.getName());
             loggerMap.put("Parent", (logger.getParent() == null ? null : logger.getParent().getName()));
-            loggerMap.put("EffectiveLevel", String.valueOf(logger.getEffectiveLevel()));
+            loggerMap.put("EffectiveLevel", String.valueOf(logger.getLevel()));
             loggerMap.put("show","true");
             
-            loggersList.add(loggerMap);  
-        }
+            loggersList.add(loggerMap);
+		}
 		
         Comparator<Map<String, String>> mapComparator = new Comparator<Map<String, String>>() {
             public int compare(Map<String, String> m1, Map<String, String> m2) {
