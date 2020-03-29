@@ -19,6 +19,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.core.config.Configurator;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.config.Configuration;
 import org.apache.logging.log4j.core.config.AppenderRef;
@@ -84,13 +85,18 @@ public class LogLevelModifier extends BasePluginResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String setLogLevel(@QueryParam("lName") String loggerName, @QueryParam("level") String level) { 
 		log.trace("Setting logger "+loggerName+ " to "+level);
-		
+
+		//Configurator.setLevel(loggerName, Level.getLevel(level));
+
 		final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
 		Configuration configuration = ctx.getConfiguration();
 		LoggerConfig lc2 = configuration.getLoggerConfig(loggerName);
-		
+
+		log.trace("Logger configuration name:"+lc2.getName()+" level: "+lc2.getLevel());
+
 		lc2.setLevel(Level.toLevel(level));
 		ctx.updateLoggers(configuration);
+		log.trace("Logger configuration after change name:"+lc2.getName()+" level: "+lc2.getLevel());
 
 		return "OK";
 	}

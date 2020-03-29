@@ -1944,5 +1944,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="IdentityIQ jars from tomcat" level="project" />
+    <orderEntry type="library" name="Jars from IIQ lib" level="project" />
   </component>
 </module>
