@@ -1,14 +1,12 @@
 package sailpoint.plugin.logLevel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -19,13 +17,10 @@ import javax.ws.rs.core.MediaType;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
-import org.apache.logging.log4j.core.config.Configurator;
-import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.config.Configuration;
-import org.apache.logging.log4j.core.config.AppenderRef;
-import org.apache.logging.log4j.core.Appender;
 import org.apache.logging.log4j.Level;
 
+import org.apache.logging.log4j.core.config.LoggerConfig;
 import sailpoint.rest.plugin.BasePluginResource;
 import sailpoint.rest.plugin.SystemAdmin;
 import sailpoint.tools.GeneralException;
@@ -50,14 +45,14 @@ public class LogLevelModifier extends BasePluginResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Map<String, String>> gerLoggers() throws GeneralException {
 		
-		log.debug("Running getLoggers. By user "+ getLoggedInUser().getName()+" having rights: "+getLoggedInUserRights());
-		
+		log.trace("Running getLoggers. By user "+ getLoggedInUser().getName());
+
 		final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
 		
-		Collection<org.apache.logging.log4j.core.Logger> loggers = ctx.getLoggers();
+		Collection<Logger> loggers = ctx.getLoggers();
 		List<Map<String, String>> loggersList = new ArrayList<>();
 		
-		for(org.apache.logging.log4j.core.Logger logger: loggers) {
+		for(Logger logger: loggers) {
 			Map<String, String> loggerMap = new HashMap<>();
             loggerMap.put("LoggerName", logger.getName());
             loggerMap.put("Parent", (logger.getParent() == null ? null : logger.getParent().getName()));
@@ -66,14 +61,7 @@ public class LogLevelModifier extends BasePluginResource {
             
             loggersList.add(loggerMap);
 		}
-		
-        Comparator<Map<String, String>> mapComparator = new Comparator<Map<String, String>>() {
-            public int compare(Map<String, String> m1, Map<String, String> m2) {
-                return m1.get("LoggerName").compareTo(m2.get("LoggerName"));
-            }
-        };
-        
-        Collections.sort(loggersList, mapComparator);
+        Collections.sort(loggersList, Comparator.comparing(m -> m.get("LoggerName")));
         
         return loggersList;
 	}
@@ -83,20 +71,31 @@ public class LogLevelModifier extends BasePluginResource {
 	@Path("setLogLevel")
 	@SystemAdmin
 	@Produces(MediaType.APPLICATION_JSON)
-	public String setLogLevel(@QueryParam("lName") String loggerName, @QueryParam("level") String level) { 
+	public String setLogLevel(@QueryParam("lName") String loggerName, @QueryParam("level") String level) throws Exception {
 		log.trace("Setting logger "+loggerName+ " to "+level);
+		Level newLevel = Level.getLevel(level.toUpperCase());
 
-		//Configurator.setLevel(loggerName, Level.getLevel(level));
+		if(newLevel == null) {
+			throw new Exception("Log level not recognized: "+level);
+		}
 
-		final LoggerContext ctx = (LoggerContext) LogManager.getContext(false);
-		Configuration configuration = ctx.getConfiguration();
-		LoggerConfig lc2 = configuration.getLoggerConfig(loggerName);
+		final LoggerContext loggerContext = (LoggerContext) LogManager.getContext(false);
+		final Configuration config = loggerContext.getConfiguration();
 
-		log.trace("Logger configuration name:"+lc2.getName()+" level: "+lc2.getLevel());
+		LoggerConfig loggerConfig = config.getLoggerConfig(loggerName);
+		log.trace("Got LoggerConfig: "+loggerConfig.getName()+" with level "+loggerConfig.getLevel());
 
-		lc2.setLevel(Level.toLevel(level));
-		ctx.updateLoggers(configuration);
-		log.trace("Logger configuration after change name:"+lc2.getName()+" level: "+lc2.getLevel());
+		if (!loggerConfig.getName().equals(loggerName)) {
+			LoggerConfig newLoggerConfig = new LoggerConfig(loggerName, newLevel, true);
+			newLoggerConfig.setParent(loggerConfig);
+			config.addLogger(loggerName, newLoggerConfig);
+			log.trace("New Logger configuration name: "+newLoggerConfig.getName()+" level: "+newLoggerConfig.getLevel());
+		} else {
+			loggerConfig.setLevel(newLevel);
+			log.trace("Existing logger configuration name: "+loggerConfig.getName()+" level: "+loggerConfig.getLevel());
+		}
+		loggerContext.updateLoggers();
+		log.trace("Log level update done.");
 
 		return "OK";
 	}
