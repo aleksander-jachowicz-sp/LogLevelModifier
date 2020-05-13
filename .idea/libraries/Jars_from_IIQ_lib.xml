@@ -1,0 +1,18 @@
+<component name="libraryTable">
+  <library name="Jars from IIQ lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../IdentityIQ/lib/ant-contrib-1.0b3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../IdentityIQ/lib/AntelopeTasks_3.5.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../IdentityIQ/lib/bsh-2.1.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../IdentityIQ/lib/catalina-ant.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../IdentityIQ/lib/commons-lang-2.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../IdentityIQ/lib/guava-23.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../IdentityIQ/lib/javassist-3.21.0-GA.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../IdentityIQ/lib/log4j-1.2.17.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../IdentityIQ/lib/reflections-0.9.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../IdentityIQ/lib/services-tools.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
