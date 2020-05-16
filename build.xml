@@ -2,7 +2,7 @@
 <project name="Log Level Modifier" default="package">
 
   <!-- allow overriding of build properties -->
-  <property file="user.build.properties" />
+  <property file="build.properties" />
   <property file="build.properties" />
 
   <property name="overlay" location="build/dist/overlay" />
