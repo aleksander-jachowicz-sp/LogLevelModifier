@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.itf.configuration.ITFSettingsState">
+    <option name="connectionDataMapSetting">
+      <map>
+        <entry key="$PROJECT_DIR$/../IdentityIQ/dev.target.properties">
+          <value>
+            <map>
+              <entry key="displayName" value="dev" />
+              <entry key="password" value="admin" />
+              <entry key="path" value="$PROJECT_DIR$/../IdentityIQ/dev.target.properties" />
+              <entry key="serverHost" value="http://localhost:8080/identityiq" />
+              <entry key="userName" value="spadmin" />
+              <entry key="visible" value="true" />
+            </map>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../IdentityIQ/sandbox.target.properties">
+          <value>
+            <map>
+              <entry key="displayName" value="sandbox" />
+              <entry key="password" value="admin" />
+              <entry key="path" value="$PROJECT_DIR$/../IdentityIQ/sandbox.target.properties" />
+              <entry key="serverHost" value="http://localhost:8080/identityiq" />
+              <entry key="userName" value="spadmin" />
+              <entry key="visible" value="true" />
+            </map>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../IdentityIQ/testModule/prod.target.properties">
+          <value>
+            <map>
+              <entry key="displayName" value="prod" />
+              <entry key="password" value="admin" />
+              <entry key="path" value="$PROJECT_DIR$/../IdentityIQ/testModule/prod.target.properties" />
+              <entry key="serverHost" value="http://localhost:8080/identityiq" />
+              <entry key="userName" value="spadmin" />
+              <entry key="visible" value="true" />
+            </map>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../IdentityIQ/testModule/sandbox.target.properties">
+          <value>
+            <map>
+              <entry key="displayName" value="sandbox" />
+              <entry key="password" value="admin" />
+              <entry key="path" value="$PROJECT_DIR$/../IdentityIQ/testModule/sandbox.target.properties" />
+              <entry key="serverHost" value="http://localhost:8080/identityiq" />
+              <entry key="userName" value="spadmin" />
+              <entry key="visible" value="true" />
+            </map>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
